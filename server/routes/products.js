@@ -11,7 +11,7 @@ router.get("/public", async (req, res) => {
   try {
     const { category, featured, limit = 20, page = 1, sortBy, inStock, minPrice, maxPrice } = req.query;
     
-    const query = { isActive: true };
+    const query = {  };
     if (category && category !== 'all') {
       query.category = new RegExp(category, 'i');
     }
@@ -70,7 +70,7 @@ router.get("/public", async (req, res) => {
 // Get featured products (public)
 router.get("/public/featured", async (req, res) => {
   try {
-    const products = await Product.find({ isActive: true })
+    const products = await Product.find({  })
       .limit(8)
       .sort({ createdAt: -1 });
 
@@ -107,7 +107,7 @@ router.get("/public/categories", async (req, res) => {
 // Get single product (public)
 router.get("/public/:id", async (req, res) => {
   try {
-    const product = await Product.findOne({ _id: req.params.id, isActive: true });
+    const product = await Product.findOne({ _id: req.params.id,  });
     if (!product) {
       return res.status(404).json({ 
         success: false, 
