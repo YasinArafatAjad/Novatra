@@ -1,0 +1,4 @@
+VITE_API_BASE_URL=http://localhost:8000/api
+VITE_WEBSITE_NAME=TechStyle
+VITE_BKASH_API_KEY=your_bkash_api_key
+VITE_NAGAD_API_KEY=your_nagad_api_key
