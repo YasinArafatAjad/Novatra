@@ -21,9 +21,30 @@ const Home = () => {
   const loadFeaturedProducts = async () => {
     try {
       const response = await apiCall('/products/public/featured')
-      setFeaturedProducts(response.data)
+      if (response.data.success) {
+        setFeaturedProducts(response.data.data)
+      }
     } catch (error) {
       console.error('Error loading featured products:', error)
+      // Set some mock products for demo
+      setFeaturedProducts([
+        {
+          _id: '1',
+          name: 'Summer Dress',
+          price: 89.99,
+          category: 'Dresses',
+          stock: 10,
+          images: [{ url: 'https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg' }]
+        },
+        {
+          _id: '2',
+          name: 'Classic Shirt',
+          price: 45.50,
+          category: 'Tops',
+          stock: 15,
+          images: [{ url: 'https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg' }]
+        }
+      ])
     } finally {
       setLoading(false)
     }

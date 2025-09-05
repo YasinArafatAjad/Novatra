@@ -4,6 +4,10 @@ import { useNotification } from '../contexts/NotificationContext'
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
+  timeout: 10000,
+  headers: {
+    'Content-Type': 'application/json',
+  }
 })
 
 export const useApi = () => {
@@ -19,6 +23,18 @@ export const useApi = () => {
     return config
   })
 
+  // Add response interceptor to handle auth errors
+  api.interceptors.response.use(
+    (response) => response,
+    (error) => {
+      if (error.response?.status === 401) {
+        localStorage.removeItem('token')
+        window.location.href = '/login'
+      }
+      return Promise.reject(error)
+    }
+  )
+
   const apiCall = async (url, options = {}) => {
     setLoading(true)
     try {
@@ -28,13 +44,13 @@ export const useApi = () => {
         data: options.data,
         params: options.params,
         headers: {
-          'Content-Type': 'application/json',
           ...options.headers,
         },
         responseType: options.responseType || 'json',
       })
-      return response.data
+      return response
     } catch (error) {
+      console.error('API Error:', error)
       const errorMessage =
         error.response?.data?.message || error.message || 'An error occurred'
       if (!options.suppressError) {

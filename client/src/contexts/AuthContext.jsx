@@ -32,7 +32,11 @@ export const AuthProvider = ({ children }) => {
         suppressError: true,
       })
 
-      setUser(response.data.user)
+      if (response.data.success) {
+        setUser(response.data.data.user)
+      } else {
+        throw new Error('Token validation failed')
+      }
     } catch (error) {
       console.error('Token validation failed:', error)
       localStorage.removeItem('token')
@@ -50,7 +54,11 @@ export const AuthProvider = ({ children }) => {
         data: { email, password },
       })
 
-      const { user: userData, token: authToken } = response.data
+      if (!response.data.success) {
+        throw new Error(response.data.message || 'Login failed')
+      }
+
+      const { user: userData, token: authToken } = response.data.data
 
       localStorage.setItem('token', authToken)
       setToken(authToken)
@@ -69,7 +77,11 @@ export const AuthProvider = ({ children }) => {
         data: userData,
       })
 
-      const { user: newUser, token: authToken } = response.data
+      if (!response.data.success) {
+        throw new Error(response.data.message || 'Registration failed')
+      }
+
+      const { user: newUser, token: authToken } = response.data.data
 
       localStorage.setItem('token', authToken)
       setToken(authToken)

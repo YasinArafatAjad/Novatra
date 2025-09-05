@@ -56,7 +56,9 @@ const Register = () => {
       showSuccess('Account created successfully!')
       navigate('/', { replace: true })
     } catch (error) {
-      showError(error.response?.data?.message || 'Registration failed')
+      console.error('Registration error:', error)
+      const errorMessage = error.response?.data?.message || error.message || 'Registration failed'
+      showError(errorMessage)
     } finally {
       setLoading(false)
     }

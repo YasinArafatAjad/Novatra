@@ -43,7 +43,9 @@ const Login = () => {
       showSuccess('Login successful!')
       navigate(from, { replace: true })
     } catch (error) {
-      showError(error.response?.data?.message || 'Login failed')
+      console.error('Login error:', error)
+      const errorMessage = error.response?.data?.message || error.message || 'Login failed'
+      showError(errorMessage)
     } finally {
       setLoading(false)
     }
