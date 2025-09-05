@@ -13,6 +13,7 @@ import customerRoutes from "./routes/customers.js";
 import settingsRoutes from "./routes/settings.js";
 import invoiceRoutes from "./routes/invoices.js";
 import userRoutes from "./routes/user.js";
+import cloudinaryRoutes from "./routes/cloudinary.js";
 
 
 const app = express();
@@ -37,6 +38,7 @@ app.use("/api/customers", customerRoutes);
 app.use("/api/settings", settingsRoutes);
 app.use("/api/invoices", invoiceRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api", cloudinaryRoutes);
 
 // Health check
 app.get("/", (req, res) => {
