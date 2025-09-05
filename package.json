@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"npm run server\" \"npm run dashboard\"",
+    "dev": "concurrently \"npm run server\" \"npm run dashboard \" npm run client\"",
     "server": "cd server && npm i && nodemon server.js",
     "dashboard": "cd dashboard && npm i && npm run dev",
     "client": "cd client && npm i && npm run dev",
