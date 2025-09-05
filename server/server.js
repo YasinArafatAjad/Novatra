@@ -12,6 +12,7 @@ import orderRoutes from "./routes/orders.js";
 import customerRoutes from "./routes/customers.js";
 import settingsRoutes from "./routes/settings.js";
 import invoiceRoutes from "./routes/invoices.js";
+import userRoutes from "./routes/user.js";
 
 
 const app = express();
@@ -35,6 +36,7 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/customers", customerRoutes);
 app.use("/api/settings", settingsRoutes);
 app.use("/api/invoices", invoiceRoutes);
+app.use("/api/user", userRoutes);
 
 // Health check
 app.get("/", (req, res) => {
